@@ -14,8 +14,7 @@ Sub stock_loop():
         Set ws = Worksheets("Q" & iWorksheet)
 
         ' FIRST SECTION
-        ' --------
-        ' column and row titles
+        ' column titles
         ws.Cells(1, 9).Value = "Ticker"
         ws.Cells(1, 10).Value = "Quarterly Change"
         ws.Cells(1, 11).Value = "Percent Change"
@@ -24,11 +23,12 @@ Sub stock_loop():
         ' data
         Dim ticker As String: ticker = ws.Cells(2, 1).Value
         Dim ticker_row As Integer: ticker_row = 2
+        
         Dim ticker_quarterly_open As Double: ticker_quarterly_open = ws.Cells(2, 3).Value
         Dim ticker_quarterly_close As Double: ticker_quarterly_close = -1
         Dim ticker_total_stock_volume As Double: ticker_total_stock_volume = 0
         
-        Dim last_row As Long: last_row = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+        Dim last_row As Long: last_row = ws.Range("A1").End(xlDown).Row
         For iRow = 2 To last_row:
         
             ticker_cell = ws.Cells(iRow, 1).Value
@@ -39,6 +39,7 @@ Sub stock_loop():
                 ticker_quarterly_close = ws.Cells(iRow - 1, 6).Value
                 Dim quarterly_change As Double: quarterly_change = ticker_quarterly_close - ticker_quarterly_open
                 Dim percent_change As Double: percent_change = (ticker_quarterly_close - ticker_quarterly_open) / ticker_quarterly_open
+                
                 ' print results
                 ws.Cells(ticker_row, 9).Value = ticker
                 ws.Cells(ticker_row, 10).Value = quarterly_change
@@ -70,8 +71,8 @@ Sub stock_loop():
         percent_change_range.NumberFormat = "0.00%"
         
         ' SECOND SECTION
-        ' --------
-        'column and row titles
+        
+        ' column and row titles
         ws.Cells(1, 16).Value = "Ticker"
         ws.Cells(1, 17).Value = "Value"
         ws.Cells(2, 15).Value = "Greatest % Increase"
