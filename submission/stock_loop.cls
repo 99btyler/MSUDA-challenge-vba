@@ -9,9 +9,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Sub stock_loop():
 
-    For iWorksheet = 1 To 4:
-
-        Set ws = Worksheets("Q" & iWorksheet)
+    For Each ws In ThisWorkbook.Worksheets
 
         ' FIRST SECTION
         ' column titles
@@ -113,7 +111,7 @@ Sub stock_loop():
         value_percent_change_range.FormatConditions.Delete
         value_percent_change_range.NumberFormat = "0.00%"
 
-    Next iWorksheet
+    Next ws
     
 End Sub
 
